@@ -30,33 +30,11 @@ import {
   Trophy,
 } from "lucide-react";
 import ScrollToTop from "@/components/scroll-to-top";
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
 import { ResumeGenerator } from "@/components/resume/resume-generator";
 
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const cookieStore = cookies();
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-        set(name: string, value: string, options?: any) {
-          // No-op in this read-only context
-        },
-        remove(name: string, options?: any) {
-          // No-op in this read-only context
-        },
-      },
-    }
-  );
-  const { data: { session } } = await supabase.auth.getSession();
-
   return (
     <div id="top" className="min-h-screen flex flex-col">
       <SiteHeader />

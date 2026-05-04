@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useMemo } from "react";
-import { User } from "@supabase/supabase-js";
-import { createClient } from "@/lib/supabase/client";
+import { createContext, useContext, useEffect, useState, useRef } from "react";
+import { User, SupabaseClient } from "@supabase/supabase-js";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
 interface AuthContextType {
@@ -17,15 +17,26 @@ const AuthContext = createContext<AuthContextType>({
   signOut: async () => {}
 });
 
-// Create supabase client outside component to ensure single instance
-const supabase = createClient();
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const supabaseRef = useRef<SupabaseClient | null>(null);
 
   useEffect(() => {
+    // Skip auth if Supabase is not configured
+    if (!isSupabaseConfigured()) {
+      console.warn('Supabase is not configured. Auth features are disabled.');
+      setLoading(false);
+      return;
+    }
+
+    // Create supabase client only when needed
+    if (!supabaseRef.current) {
+      supabaseRef.current = createClient();
+    }
+    const supabase = supabaseRef.current;
+
     // Get initial session
     const getInitialSession = async () => {
       try {
@@ -78,8 +89,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [router]);
 
   const signOut = async () => {
+    if (!supabaseRef.current) return;
     try {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await supabaseRef.current.auth.signOut();
       if (error) {
         console.error('Error signing out:', error);
       }
