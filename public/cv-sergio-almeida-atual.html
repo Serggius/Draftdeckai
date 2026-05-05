@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currículo - Sérgio Almeida</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .toolbar {
+            background-color: #f0f0f0;
+            padding: 15px 30px;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+
+        .toolbar button {
+            padding: 10px 20px;
+            background-color: #003d82;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .toolbar button:hover {
+            background-color: #002d5c;
+        }
+
+        .content {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: #f9f9f9;
+            padding: 30px 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .photo-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-placeholder {
+            font-size: 48px;
+            color: #999;
+            font-weight: bold;
+        }
+
+        .contact-info {
+            margin-bottom: 25px;
+            font-size: 13px;
+        }
+
+        .contact-info h3 {
+            color: #003d82;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-info p {
+            margin-bottom: 8px;
+            color: #333;
+            word-break: break-word;
+        }
+
+        .contact-info p strong {
+            display: block;
+            color: #555;
+            font-size: 12px;
+        }
+
+        .section-title {
+            color: #003d82;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #003d82;
+            padding-bottom: 8px;
+        }
+
+        .skill-item {
+            background-color: white;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #333;
+            border-left: 3px solid #003d82;
+        }
+
+        .language-item {
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .language-item strong {
+            display: block;
+            color: #333;
+        }
+
+        .language-item span {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .hobby-item {
+            display: inline-block;
+            background-color: #e8f1f8;
+            color: #003d82;
+            padding: 5px 10px;
+            margin: 3px 3px 3px 0;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .header {
+            margin-bottom: 25px;
+            border-bottom: 3px solid #003d82;
+            padding-bottom: 15px;
+        }
+
+        .name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #003d82;
+            margin-bottom: 5px;
+        }
+
+        .profile-text {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 700px;
+        }
+
+        .main-section {
+            margin-bottom: 25px;
+        }
+
+        .main-title {
+            color: #003d82;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #003d82;
+            padding-bottom: 8px;
+        }
+
+        .experience-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            gap: 10px;
+        }
+
+        .exp-title {
+            font-weight: 700;
+            color: #003d82;
+            font-size: 14px;
+        }
+
+        .exp-date {
+            background-color: #e8f1f8;
+            color: #003d82;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .exp-company {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .exp-tasks {
+            list-style: none;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .exp-tasks li {
+            color: #555;
+            font-size: 13px;
+            margin-bottom: 5px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .exp-tasks li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #003d82;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background-color: white;
+            }
+
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+
+            .toolbar {
+                display: none;
+            }
+
+            .content {
+                flex-direction: row;
+            }
+
+            .sidebar {
+                width: 25%;
+            }
+
+            .main-content {
+                width: 75%;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+                padding: 20px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .photo-container {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="toolbar">
+            <button onclick="downloadPDF()">Descarregar PDF</button>
+            <button onclick="downloadDOCX()">Descarregar DOCX</button>
+        </div>
+
+        <div class="content" id="content">
+            <div class="sidebar">
+                <div class="photo-container">
+                    <img src="foto-sergio.jpg" alt="Foto de Sérgio Almeida" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="photo-placeholder" style="display:none;">SA</div>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>📱 928 212 041</p>
+                    <p>📱 WhatsApp: 928 212 041</p>
+                    <p>📧 sergiusalmeida@gmail.com</p>
+                    <p>📍 Rua de Azevedo n.º 413 R/C, 4300-049 Porto, Portugal</p>
+                </div>
+
+                <div>
+                    <h3 class="section-title">Competências Técnicas</h3>
+                    <div class="skill-item">C/C++</div>
+                    <div class="skill-item">C#</div>
+                    <div class="skill-item">Java & JavaScript</div>
+                    <div class="skill-item">PHP</div>
+                    <div class="skill-item">Python</div>
+                    <div class="skill-item">Redes e Sistemas Informáticos</div>
+                    <div class="skill-item">Administração de Sistemas</div>
+                </div>
+
+                <div>
+                    <h3 class="section-title">Competências Pessoais</h3>
+                    <div class="skill-item">Literacia Digital Avançada</div>
+                    <div class="skill-item">Redação e Revisão de Textos</div>
+                    <div class="skill-item">Liderança de Equipas</div>
+                    <div class="skill-item">Comunicação Eficaz</div>
+                </div>
+
+                <div>
+                    <h3 class="section-title">Idiomas</h3>
+                    <div class="language-item">
+                        <strong>Português</strong>
+                        <span>Nativo</span>
+                    </div>
+                    <div class="language-item">
+                        <strong>Inglês</strong>
+                        <span>Intermédio - Compreensão, Expressão Escrita e Oral</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="section-title">Hobbies</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        <span class="hobby-item">Cozinhar</span>
+                        <span class="hobby-item">Leitura</span>
+                        <span class="hobby-item">Cinema</span>
+                        <span class="hobby-item">Música</span>
+                        <span class="hobby-item">Guitarra</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <header class="header">
+                    <h1 class="name">Sérgio Almeida</h1>
+                    <p class="profile-text">Apoio Técnico - Administrativo – Informático - Logístico – Operacional – Social - Saúde</p>
+                </header>
+
+                <section class="main-section">
+                    <h2 class="main-title">Perfil Profissional</h2>
+                    <p style="color: #555; font-size: 13px; line-height: 1.6;">
+                        Profissional orientado para a tecnologia, com forte capacidade de adaptação a novos desafios. Valoriza o relacionamento interpessoal, a sinergia de equipa e a melhoria contínua. Demonstra sentido crítico apurado e facilidade de comunicação em contextos diversos.
+                    </p>
+                </section>
+
+                <section class="main-section">
+                    <h2 class="main-title">Experiência Profissional</h2>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <span class="exp-title">Freelancer — Redação, Revisão e Digitação</span>
+                            <span class="exp-date">Jan. 2022 — Presente</span>
+                        </div>
+                        <div class="exp-company">Trabalho Independente · Porto, Portugal</div>
+                        <ul class="exp-tasks">
+                            <li>Redigir e rever textos para clientes particulares e empresas.</li>
+                            <li>Criar e formatar tabelas e relatórios em Excel.</li>
+                            <li>Transcrever áudio e produzir legendas para conteúdos digitais.</li>
+                            <li>Prestar suporte técnico e atendimento ao cliente em ambiente online.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <span class="exp-title">Assistente Pessoal em Cuidados Domiciliários</span>
+                            <span class="exp-date">Ago. 2019 — Dez. 2021</span>
+                        </div>
+                        <div class="exp-company">CAVI-AFUA / APN / AVI · Portugal</div>
+                        <ul class="exp-tasks">
+                            <li>Apoiar pessoas com deficiência física e mental nas atividades de vida diária.</li>
+                            <li>Executar programas de reabilitação e promover a inclusão social.</li>
+                            <li>Coordenar com equipas de saúde para garantir continuidade dos cuidados.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <span class="exp-title">Freelancer — Formação, Tutoria e Investigação</span>
+                            <span class="exp-date">Abr. 2013 — Mai. 2019</span>
+                        </div>
+                        <div class="exp-company">Trabalho Independente · Brasil / Portugal</div>
+                        <ul class="exp-tasks">
+                            <li>Ministrar tutorias de ensino básico e apoio académico.</li>
+                            <li>Orientar dissertações e monografias em Língua Portuguesa.</li>
+                            <li>Desenvolver e lecionar formação em informática inclusiva para idosos.</li>
+                            <li>Atuar como agente cultural e redator em projetos comunitários.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <span class="exp-title">Técnico Administrativo e Operacional</span>
+                            <span class="exp-date">Jan. 2000 — Mar. 2012</span>
+                        </div>
+                        <div class="exp-company">SESC · SENAC · SEST-SENAT · SEED/GO · AR-X/DF · Carrefour · Brasil</div>
+                        <ul class="exp-tasks">
+                            <li>Operar caixa e gerir serviços gerais em ambiente de retalho.</li>
+                            <li>Executar funções de secretariado e apoio administrativo.</li>
+                            <li>Redigir, editar e rever conteúdos institucionais e comunicações internas.</li>
+                            <li>Coordenar atividades culturais e sociais junto das comunidades locais.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="main-section">
+                    <h2 class="main-title">Formação Académica</h2>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <span class="exp-title">Especialista em Gestão de Redes e Sistemas Informáticos</span>
+                            <span class="exp-date">Abr. 2024 — Out. 2025</span>
+                        </div>
+                        <div class="exp-company">CINEL — Centro de Formação Profissional · Porto, Portugal</div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <span class="exp-title">Programação — C/C++, C#, Java, JavaScript, PHP, Python</span>
+                            <span class="exp-date">Ago. 2022 — Nov. 2023</span>
+                        </div>
+                        <div class="exp-company">TECNISIGN INC — Centro de Competências Digitais · Porto, Portugal</div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <span class="exp-title">Certificado de Equivalência do Ensino Secundário</span>
+                            <span class="exp-date">Jun. 2022</span>
+                        </div>
+                        <div class="exp-company">Portugal</div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <span class="exp-title">Pós-Graduação em Metodologia Científica — Análise Crítica do Discurso</span>
+                            <span class="exp-date">Jun. 2014 — Jul. 2016</span>
+                        </div>
+                        <div class="exp-company">FAEL — Sociedade Técnica Educacional da Lapa · Paraná, Brasil</div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <span class="exp-title">Pós-Graduação (Lato Sensu) em Tradução</span>
+                            <span class="exp-date">—</span>
+                        </div>
+                        <div class="exp-company">Universidade Estácio de Sá - UNESA · Rio de Janeiro, Brasil</div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <span class="exp-title">Extensão Universitária em Língua Portuguesa</span>
+                            <span class="exp-date">Jan. 2009 — Dez. 2009</span>
+                        </div>
+                        <div class="exp-company">Pontifícia Universidade Católica de Minas Gerais – PUC MINAS · Belo Horizonte, Brasil</div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('content');
+            const opt = {
+                margin: 10,
+                filename: 'Sergio_Almeida_CV.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        function downloadDOCX() {
+            const { Document, Packer, Paragraph, Table, TableRow, TableCell, TextRun, AlignmentType, WidthType, BorderStyle, UnderlineType } = window.docx;
+
+            const cvContent = new Document({
+                sections: [{
+                    children: [
+                        new Paragraph({
+                            text: "Sérgio Almeida",
+                            style: "Heading1",
+                            alignment: AlignmentType.CENTER,
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Apoio Técnico - Administrativo – Informático - Logístico – Operacional – Social - Saúde",
+                            alignment: AlignmentType.CENTER,
+                            spacing: { after: 200 }
+                        }),
+                        new Paragraph({
+                            text: "CONTACTO",
+                            style: "Heading2",
+                            spacing: { before: 100, after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "928 212 041 | WhatsApp: 928 212 041 | sergiusalmeida@gmail.com",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "Rua de Azevedo n.º 413 R/C, 4300-049 Porto, Portugal",
+                            spacing: { after: 200 }
+                        }),
+                        new Paragraph({
+                            text: "PERFIL PROFISSIONAL",
+                            style: "Heading2",
+                            spacing: { before: 100, after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Profissional orientado para a tecnologia, com forte capacidade de adaptação a novos desafios. Valoriza o relacionamento interpessoal, a sinergia de equipa e a melhoria contínua. Demonstra sentido crítico apurado e facilidade de comunicação em contextos diversos.",
+                            spacing: { after: 200 }
+                        }),
+                        new Paragraph({
+                            text: "COMPETÊNCIAS",
+                            style: "Heading2",
+                            spacing: { before: 100, after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Técnicas: C/C++, C#, Java & JavaScript, PHP, Python, Redes e Sistemas Informáticos, Administração de Sistemas, Literacia Digital Avançada",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "Pessoais: Redação e Revisão de Textos, Liderança de Equipas, Comunicação Eficaz",
+                            spacing: { after: 200 }
+                        }),
+                        new Paragraph({
+                            text: "EXPERIÊNCIA PROFISSIONAL",
+                            style: "Heading2",
+                            spacing: { before: 100, after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Freelancer — Redação, Revisão e Digitação | Jan. 2022 — Presente",
+                            style: "Heading3",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "Trabalho Independente · Porto, Portugal",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "• Redigir e rever textos para clientes particulares e empresas.\n• Criar e formatar tabelas e relatórios em Excel.\n• Transcrever áudio e produzir legendas para conteúdos digitais.\n• Prestar suporte técnico e atendimento ao cliente em ambiente online.",
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Assistente Pessoal em Cuidados Domiciliários | Ago. 2019 — Dez. 2021",
+                            style: "Heading3",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "CAVI-AFUA / APN / AVI · Portugal",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "• Apoiar pessoas com deficiência física e mental nas atividades de vida diária.\n• Executar programas de reabilitação e promover a inclusão social.\n• Coordenar com equipas de saúde para garantir continuidade dos cuidados.",
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Freelancer — Formação, Tutoria e Investigação | Abr. 2013 — Mai. 2019",
+                            style: "Heading3",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "Trabalho Independente · Brasil / Portugal",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "• Ministrar tutorias de ensino básico e apoio académico.\n• Orientar dissertações e monografias em Língua Portuguesa.\n• Desenvolver e lecionar formação em informática inclusiva para idosos.\n• Atuar como agente cultural e redator em projetos comunitários.",
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Técnico Administrativo e Operacional | Jan. 2000 — Mar. 2012",
+                            style: "Heading3",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "SESC · SENAC · SEST-SENAT · SEED/GO · AR-X/DF · Carrefour · Brasil",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "• Operar caixa e gerir serviços gerais em ambiente de retalho.\n• Executar funções de secretariado e apoio administrativo.\n• Redigir, editar e rever conteúdos institucionais e comunicações internas.\n• Coordenar atividades culturais e sociais junto das comunidades locais.",
+                            spacing: { after: 200 }
+                        }),
+                        new Paragraph({
+                            text: "FORMAÇÃO ACADÉMICA",
+                            style: "Heading2",
+                            spacing: { before: 100, after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Especialista em Gestão de Redes e Sistemas Informáticos | Abr. 2024 — Out. 2025",
+                            style: "Heading3",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "CINEL — Centro de Formação Profissional · Porto, Portugal\n",
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Programação — C/C++, C#, Java, JavaScript, PHP, Python | Ago. 2022 — Nov. 2023",
+                            style: "Heading3",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "TECNISIGN INC — Centro de Competências Digitais · Porto, Portugal\n",
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Certificado de Equivalência do Ensino Secundário | Jun. 2022",
+                            style: "Heading3",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "Portugal\n",
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Pós-Graduação em Metodologia Científica — Análise Crítica do Discurso | Jun. 2014 — Jul. 2016",
+                            style: "Heading3",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "FAEL — Sociedade Técnica Educacional da Lapa · Paraná, Brasil\n",
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Pós-Graduação (Lato Sensu) em Tradução",
+                            style: "Heading3",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "Universidade Estácio de Sá - UNESA · Rio de Janeiro, Brasil\n",
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Extensão Universitária em Língua Portuguesa | Jan. 2009 — Dez. 2009",
+                            style: "Heading3",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "Pontifícia Universidade Católica de Minas Gerais – PUC MINAS · Belo Horizonte, Brasil",
+                            spacing: { after: 200 }
+                        }),
+                        new Paragraph({
+                            text: "IDIOMAS",
+                            style: "Heading2",
+                            spacing: { before: 100, after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Português: Nativo",
+                            spacing: { after: 50 }
+                        }),
+                        new Paragraph({
+                            text: "Inglês: Intermédio (Compreensão, Expressão Escrita e Oral)",
+                            spacing: { after: 200 }
+                        }),
+                        new Paragraph({
+                            text: "HOBBIES",
+                            style: "Heading2",
+                            spacing: { before: 100, after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "Cozinhar · Leitura · Cinema · Música · Guitarra",
+                            spacing: { after: 200 }
+                        })
+                    ]
+                }]
+            });
+
+            Packer.toBlob(cvContent).then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Sergio_Almeida_CV.docx');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            });
+        }
+    </script>
+</body>
+</html>
