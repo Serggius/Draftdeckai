@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV - Sérgio Almeida</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.5;
+      font-size: 11pt;
+    }
+
+    .download-buttons {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .download-btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .download-pdf {
+      background: #2563eb;
+      color: white;
+    }
+
+    .download-pdf:hover {
+      background: #1d4ed8;
+    }
+
+    .download-docx {
+      background: #16a34a;
+      color: white;
+    }
+
+    .download-docx:hover {
+      background: #15803d;
+    }
+
+    .cv-container {
+      max-width: 210mm;
+      margin: 20px auto;
+      background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 297mm;
+    }
+
+    /* Coluna Esquerda - Sidebar */
+    .sidebar {
+      background: #1e3a5f;
+      color: white;
+      padding: 30px 20px;
+    }
+
+    .photo-container {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid rgba(255,255,255,0.3);
+      background: #2d4a6f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-placeholder {
+      font-size: 48px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .sidebar-section {
+      margin-bottom: 25px;
+    }
+
+    .sidebar-title {
+      font-size: 13pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      color: #90caf9;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 10pt;
+    }
+
+    .contact-icon {
+      width: 18px;
+      flex-shrink: 0;
+      text-align: center;
+      color: #90caf9;
+    }
+
+    .contact-text {
+      word-break: break-word;
+    }
+
+    .competencia-item {
+      background: rgba(255,255,255,0.1);
+      padding: 6px 12px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      font-size: 10pt;
+    }
+
+    .idioma-item {
+      margin-bottom: 10px;
+    }
+
+    .idioma-nome {
+      font-weight: 600;
+      font-size: 10pt;
+    }
+
+    .idioma-nivel {
+      font-size: 9pt;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .interesse-item {
+      font-size: 10pt;
+      margin-bottom: 4px;
+      padding-left: 12px;
+      position: relative;
+    }
+
+    .interesse-item::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #90caf9;
+    }
+
+    .ti-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .ti-item {
+      background: rgba(255,255,255,0.1);
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-size: 9pt;
+      text-align: center;
+    }
+
+    /* Coluna Direita - Conteúdo Principal */
+    .main-content {
+      padding: 30px;
+    }
+
+    .header {
+      margin-bottom: 25px;
+      border-bottom: 3px solid #1e3a5f;
+      padding-bottom: 20px;
+    }
+
+    .name {
+      font-size: 28pt;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 10px;
+    }
+
+    .profile-text {
+      font-size: 11pt;
+      color: #555;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    .main-section {
+      margin-bottom: 25px;
+    }
+
+    .main-title {
+      font-size: 14pt;
+      font-weight: 700;
+      color: #1e3a5f;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .experience-item {
+      margin-bottom: 20px;
+      position: relative;
+      padding-left: 15px;
+      border-left: 3px solid #1e3a5f;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+    }
+
+    .exp-title {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .exp-date {
+      font-size: 10pt;
+      color: #1e3a5f;
+      font-weight: 600;
+      background: #e3f2fd;
+      padding: 2px 10px;
+      border-radius: 12px;
+    }
+
+    .exp-company {
+      font-size: 10pt;
+      color: #666;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    .exp-tasks {
+      list-style: none;
+      padding: 0;
+    }
+
+    .exp-tasks li {
+      font-size: 10pt;
+      color: #555;
+      margin-bottom: 4px;
+      padding-left: 15px;
+      position: relative;
+    }
+
+    .exp-tasks li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #1e3a5f;
+      font-weight: bold;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .download-buttons {
+        display: none !important;
+      }
+
+      .cv-container {
+        margin: 0;
+        box-shadow: none;
+        max-width: 100%;
+        min-height: auto;
+      }
+
+      .sidebar {
+        background: #1e3a5f !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .competencia-item,
+      .ti-item {
+        background: rgba(255,255,255,0.1) !important;
+        -webkit-print-color-adjust: exact !important;
+      }
+
+      .experience-item {
+        page-break-inside: avoid;
+      }
+    }
+
+    @media screen and (max-width: 800px) {
+      .cv-container {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        margin: 10px;
+      }
+
+      .download-buttons {
+        position: static;
+        justify-content: center;
+        padding: 15px;
+        background: white;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="download-buttons">
+    <button class="download-btn download-pdf" onclick="downloadPDF()">
+      <span>Descarregar PDF</span>
+    </button>
+    <button class="download-btn download-docx" onclick="downloadDOCX()">
+      <span>Descarregar DOCX</span>
+    </button>
+  </div>
+
+  <div class="cv-container" id="cv-content">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="photo-container">
+        <div class="photo-placeholder">SA</div>
+      </div>
+
+      <!-- Contacto -->
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Contacto</h3>
+        <div class="contact-item">
+          <span class="contact-icon">Tel</span>
+          <span class="contact-text">928 212 041</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">@</span>
+          <span class="contact-text">sergiusalmeida@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">Loc</span>
+          <span class="contact-text">Rua de Azevedo n. 413 R/C<br>4300-049 Porto</span>
+        </div>
+      </div>
+
+      <!-- Competências -->
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Competências</h3>
+        <div class="competencia-item">Planeamento de Eventos</div>
+        <div class="competencia-item">Gestão do Tempo</div>
+        <div class="competencia-item">SEO básico</div>
+        <div class="competencia-item">Comunicação Assertiva</div>
+        <div class="competencia-item">Pensamento Analítico</div>
+        <div class="competencia-item">Resolução de Problemas</div>
+        <div class="competencia-item">Gestão de Projetos</div>
+        <div class="competencia-item">Liderança de grupos</div>
+        <div class="competencia-item">Excelente literacia informática e comunicativa</div>
+      </div>
+
+      <!-- Idiomas -->
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Idiomas</h3>
+        <div class="idioma-item">
+          <div class="idioma-nome">Português</div>
+          <div class="idioma-nivel">Nativo</div>
+        </div>
+        <div class="idioma-item">
+          <div class="idioma-nome">Inglês</div>
+          <div class="idioma-nivel">Avançado</div>
+        </div>
+        <div class="idioma-item">
+          <div class="idioma-nome">Espanhol</div>
+          <div class="idioma-nivel">Intermédio</div>
+        </div>
+      </div>
+
+      <!-- Interesses -->
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Interesses</h3>
+        <div class="interesse-item">Cozinhar</div>
+        <div class="interesse-item">Ler livros</div>
+        <div class="interesse-item">Assistir a filmes</div>
+        <div class="interesse-item">Escutar música</div>
+        <div class="interesse-item">Tocar guitarra</div>
+        <div class="interesse-item">Meditação</div>
+      </div>
+
+      <!-- TI -->
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">TI</h3>
+        <div class="ti-grid">
+          <div class="ti-item">C/C++</div>
+          <div class="ti-item">C#</div>
+          <div class="ti-item">Java</div>
+          <div class="ti-item">JavaScript</div>
+          <div class="ti-item">PHP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <header class="header">
+        <h1 class="name">Sérgio Almeida</h1>
+        <p class="profile-text">
+          Profissional versátil com sólida experiência multidisciplinar em gestão administrativa, redação técnica e educação, apoiada por uma base académica robusta em sistemas informáticos e linguística. Especialista em comunicação assertiva, inclusão social e gestão de projetos, dedico-me a otimizar processos com rigor técnico e pensamento analítico para alcançar resultados de excelência.
+        </p>
+      </header>
+
+      <section class="main-section">
+        <h2 class="main-title">Experiência de Trabalho</h2>
+
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Diretor de Projetos Pedagógicos de TI e Línguas</span>
+            <span class="exp-date">Outubro 2022 - Atual</span>
+          </div>
+          <div class="exp-company">Centro de Competências Digitais - Tecnisigi, Porto-PT</div>
+        </div>
+
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Freelancer em redação, revisão e digitação</span>
+            <span class="exp-date">Janeiro 2022 - Atual</span>
+          </div>
+          <div class="exp-company">Freelance</div>
+          <ul class="exp-tasks">
+            <li>Criação de tabelas Excel</li>
+            <li>Transcrição</li>
+            <li>Criação de legendas</li>
+            <li>Gravação de voz em áudio</li>
+            <li>Suporte online ao cliente</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Assistência pessoal em homecare, reabilitação e inclusão de pessoas com deficiência física e mental</span>
+            <span class="exp-date">Agosto 2019 - Dezembro 2021</span>
+          </div>
+          <div class="exp-company">CAVI-AFUA, APN, AVI</div>
+          <ul class="exp-tasks">
+            <li>Prestar apoio integral nas atividades diárias para garantir autonomia.</li>
+            <li>Promover a inclusão social através de suporte emocional especializado.</li>
+            <li>Facilitar a acessibilidade plena em rotinas de cuidados homecare diário.</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Gestor de Projetos - Sénior</span>
+            <span class="exp-date">Março 2018 - Atual</span>
+          </div>
+          <div class="exp-company">Freelance, Brasil</div>
+        </div>
+
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Consultor de TI</span>
+            <span class="exp-date">Abril 2016 - Fevereiro 2018</span>
+          </div>
+          <div class="exp-company">Freelance, Brasil</div>
+        </div>
+
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Tutorias em educação básica e académicas, dissertações e monografias, redator, pesquisador, agente cultural, comerciante, formador em informática inclusiva para idosos</span>
+            <span class="exp-date">Abril 2013 - Maio 2019</span>
+          </div>
+          <div class="exp-company">Freelancer</div>
+          <ul class="exp-tasks">
+            <li>Orientar alunos na escrita de teses académicas e artigos profissionais.</li>
+            <li>Pesquisar temas diversos para elaboração de conteúdos e publicações web.</li>
+            <li>Promover eventos culturais visando a inclusão social na comunidade local.</li>
+            <li>Gerir operações comerciais focadas na fidelização de clientes exigentes.</li>
+            <li>Ministrar cursos de informática adaptados para idosos com foco digital.</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Professor do Ensino Superior e Médio</span>
+            <span class="exp-date">Janeiro 2009 - Abril 2016</span>
+          </div>
+          <div class="exp-company">Colégio Brasiliano, Rede Pitágoras, Escola Monteiro Lobato, UFRGS - Brasil</div>
+        </div>
+
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Administrativo e técnico: operador de loja e serviços gerais; caixa; secretaria; redator, editor, revisor de textos; organizador de atividades culturais e sociais</span>
+            <span class="exp-date">Janeiro 2000 - Março 2012</span>
+          </div>
+          <div class="exp-company">SESC/SENAC/SEST-SENAT/SEED/GO/AR-X/DF/CARREFOUR</div>
+          <ul class="exp-tasks">
+            <li>Gerir fluxos de caixa e assegurar a máxima eficiência no atendimento.</li>
+            <li>Redigir e rever conteúdos técnicos para otimizar toda a comunicação.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    function downloadPDF() {
+      window.print();
+    }
+
+    function downloadDOCX() {
+      const cvContent = document.getElementById('cv-content');
+      
+      // Create DOCX-compatible HTML
+      const docxContent = `
+        <!DOCTYPE html>
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' 
+              xmlns:w='urn:schemas-microsoft-com:office:word' 
+              xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+          <meta charset="utf-8">
+          <title>CV - Sérgio Almeida</title>
+          <!--[if gte mso 9]>
+          <xml>
+            <w:WordDocument>
+              <w:View>Print</w:View>
+              <w:Zoom>100</w:Zoom>
+              <w:DoNotOptimizeForBrowser/>
+            </w:WordDocument>
+          </xml>
+          <![endif]-->
+          <style>
+            body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; line-height: 1.5; margin: 2cm; }
+            h1 { font-size: 24pt; color: #1e3a5f; margin-bottom: 10pt; }
+            h2 { font-size: 14pt; color: #1e3a5f; text-transform: uppercase; border-bottom: 2pt solid #1e3a5f; padding-bottom: 5pt; margin-top: 15pt; }
+            h3 { font-size: 12pt; color: #1e3a5f; margin-top: 10pt; }
+            .profile { font-size: 11pt; color: #555; text-align: justify; margin-bottom: 15pt; }
+            .section { margin-bottom: 15pt; }
+            .exp-item { margin-bottom: 12pt; padding-left: 10pt; border-left: 3pt solid #1e3a5f; }
+            .exp-title { font-weight: bold; }
+            .exp-date { color: #1e3a5f; font-weight: bold; }
+            .exp-company { font-style: italic; color: #666; }
+            .contact-info { margin-bottom: 15pt; }
+            .skills-list { columns: 2; }
+            .skill-item { background: #f0f0f0; padding: 3pt 8pt; margin: 2pt 0; display: inline-block; }
+            ul { margin-left: 20pt; }
+            li { margin-bottom: 3pt; }
+          </style>
+        </head>
+        <body>
+          <h1>Sérgio Almeida</h1>
+          
+          <p class="profile">
+            Profissional versátil com sólida experiência multidisciplinar em gestão administrativa, redação técnica e educação, apoiada por uma base académica robusta em sistemas informáticos e linguística. Especialista em comunicação assertiva, inclusão social e gestão de projetos, dedico-me a otimizar processos com rigor técnico e pensamento analítico para alcançar resultados de excelência.
+          </p>
+
+          <div class="contact-info">
+            <strong>Contacto:</strong> 928 212 041 | sergiusalmeida@gmail.com | Rua de Azevedo n. 413 R/C, 4300-049 Porto
+          </div>
+
+          <h2>Competências</h2>
+          <p>Planeamento de Eventos | Gestão do Tempo | SEO básico | Comunicação Assertiva | Pensamento Analítico | Resolução de Problemas | Gestão de Projetos | Liderança de grupos | Excelente literacia informática e comunicativa</p>
+
+          <h2>Experiência de Trabalho</h2>
+
+          <div class="exp-item">
+            <p><span class="exp-title">Diretor de Projetos Pedagógicos de TI e Línguas</span> | <span class="exp-date">Outubro 2022 - Atual</span></p>
+            <p class="exp-company">Centro de Competências Digitais - Tecnisigi, Porto-PT</p>
+          </div>
+
+          <div class="exp-item">
+            <p><span class="exp-title">Freelancer em redação, revisão e digitação</span> | <span class="exp-date">Janeiro 2022 - Atual</span></p>
+            <p class="exp-company">Freelance</p>
+            <ul>
+              <li>Criação de tabelas Excel</li>
+              <li>Transcrição</li>
+              <li>Criação de legendas</li>
+              <li>Gravação de voz em áudio</li>
+              <li>Suporte online ao cliente</li>
+            </ul>
+          </div>
+
+          <div class="exp-item">
+            <p><span class="exp-title">Assistência pessoal em homecare, reabilitação e inclusão de pessoas com deficiência física e mental</span> | <span class="exp-date">Agosto 2019 - Dezembro 2021</span></p>
+            <p class="exp-company">CAVI-AFUA, APN, AVI</p>
+            <ul>
+              <li>Prestar apoio integral nas atividades diárias para garantir autonomia.</li>
+              <li>Promover a inclusão social através de suporte emocional especializado.</li>
+              <li>Facilitar a acessibilidade plena em rotinas de cuidados homecare diário.</li>
+            </ul>
+          </div>
+
+          <div class="exp-item">
+            <p><span class="exp-title">Gestor de Projetos - Sénior</span> | <span class="exp-date">Março 2018 - Atual</span></p>
+            <p class="exp-company">Freelance, Brasil</p>
+          </div>
+
+          <div class="exp-item">
+            <p><span class="exp-title">Consultor de TI</span> | <span class="exp-date">Abril 2016 - Fevereiro 2018</span></p>
+            <p class="exp-company">Freelance, Brasil</p>
+          </div>
+
+          <div class="exp-item">
+            <p><span class="exp-title">Tutorias em educação básica e académicas, dissertações e monografias, redator, pesquisador, agente cultural, comerciante, formador em informática inclusiva para idosos</span> | <span class="exp-date">Abril 2013 - Maio 2019</span></p>
+            <p class="exp-company">Freelancer</p>
+            <ul>
+              <li>Orientar alunos na escrita de teses académicas e artigos profissionais.</li>
+              <li>Pesquisar temas diversos para elaboração de conteúdos e publicações web.</li>
+              <li>Promover eventos culturais visando a inclusão social na comunidade local.</li>
+              <li>Gerir operações comerciais focadas na fidelização de clientes exigentes.</li>
+              <li>Ministrar cursos de informática adaptados para idosos com foco digital.</li>
+            </ul>
+          </div>
+
+          <div class="exp-item">
+            <p><span class="exp-title">Professor do Ensino Superior e Médio</span> | <span class="exp-date">Janeiro 2009 - Abril 2016</span></p>
+            <p class="exp-company">Colégio Brasiliano, Rede Pitágoras, Escola Monteiro Lobato, UFRGS - Brasil</p>
+          </div>
+
+          <div class="exp-item">
+            <p><span class="exp-title">Administrativo e técnico: operador de loja e serviços gerais; caixa; secretaria; redator, editor, revisor de textos; organizador de atividades culturais e sociais</span> | <span class="exp-date">Janeiro 2000 - Março 2012</span></p>
+            <p class="exp-company">SESC/SENAC/SEST-SENAT/SEED/GO/AR-X/DF/CARREFOUR</p>
+            <ul>
+              <li>Gerir fluxos de caixa e assegurar a máxima eficiência no atendimento.</li>
+              <li>Redigir e rever conteúdos técnicos para otimizar toda a comunicação.</li>
+            </ul>
+          </div>
+
+          <h2>Idiomas</h2>
+          <p><strong>Português:</strong> Nativo | <strong>Inglês:</strong> Avançado | <strong>Espanhol:</strong> Intermédio</p>
+
+          <h2>TI</h2>
+          <p>C/C++ | C# | Java | JavaScript | PHP</p>
+
+          <h2>Interesses</h2>
+          <p>Cozinhar | Ler livros | Assistir a filmes | Escutar música | Tocar guitarra | Meditação</p>
+        </body>
+        </html>
+      `;
+
+      const blob = new Blob(['\ufeff' + docxContent], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Sergio_Almeida_CV.doc';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
