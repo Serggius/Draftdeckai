@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currículo — Sérgio Almeida</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1a2e4a;
+      --blue:   #2563a8;
+      --steel:  #4a6080;
+      --light:  #f0f4f8;
+      --white:  #ffffff;
+      --text:   #1e2d3d;
+      --muted:  #5a6a7a;
+      --border: #c8d6e5;
+      --accent: #e8f0fa;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      color: var(--text);
+      background: #e8ecf0;
+    }
+
+    /* ── Print button (only visible on screen) ── */
+    #btn-pdf {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      z-index: 100;
+      padding: 11px 22px;
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(37,99,168,0.35);
+      transition: background 0.2s;
+    }
+    #btn-pdf:hover { background: var(--navy); }
+    #btn-pdf svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── Page wrapper ── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 32px auto;
+      background: var(--white);
+      box-shadow: 0 6px 40px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header strip ── */
+    .header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 30px 36px 24px;
+    }
+    .header h1 {
+      font-family: Arial, sans-serif;
+      font-size: 26pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .header .headline {
+      font-family: Arial, sans-serif;
+      font-size: 10pt;
+      color: #a8c4e0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    /* ── Contact bar inside header ── */
+    .contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 24px;
+      margin-top: 4px;
+    }
+    .contacts span {
+      font-family: Arial, sans-serif;
+      font-size: 9pt;
+      color: #c8dff0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .contacts span svg {
+      width: 12px;
+      height: 12px;
+      fill: none;
+      stroke: #7ab4d8;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ── Body (two columns) ── */
+    .body {
+      display: flex;
+      flex: 1;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 66mm;
+      background: var(--light);
+      border-right: 1px solid var(--border);
+      padding: 24px 20px;
+      flex-shrink: 0;
+    }
+
+    /* ── Main content ── */
+    .main {
+      flex: 1;
+      padding: 24px 28px;
+    }
+
+    /* ── Section shared ── */
+    .section { margin-bottom: 20px; }
+
+    .section-title {
+      font-family: Arial, sans-serif;
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--blue);
+      border-bottom: 2px solid var(--blue);
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+    }
+
+    /* ── Perfil ── */
+    .perfil p {
+      font-size: 9.5pt;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Competências ── */
+    .competencias ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .competencias li {
+      font-family: Arial, sans-serif;
+      font-size: 8.5pt;
+      color: var(--text);
+      background: var(--accent);
+      border-left: 3px solid var(--blue);
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+
+    /* ── Idiomas ── */
+    .idiomas .lang-item { margin-bottom: 8px; }
+    .idiomas .lang-name {
+      font-family: Arial, sans-serif;
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .idiomas .lang-level {
+      font-family: Arial, sans-serif;
+      font-size: 8pt;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+    .bar-bg {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+    .bar-fill {
+      height: 4px;
+      background: var(--blue);
+      border-radius: 2px;
+    }
+
+    /* ── Hobbies ── */
+    .hobbies ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .hobbies li {
+      font-family: Arial, sans-serif;
+      font-size: 8.5pt;
+      color: var(--muted);
+    }
+    .hobbies li::before {
+      content: "–  ";
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    /* ── Experiência entries ── */
+    .entry { margin-bottom: 14px; }
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+    .entry-role {
+      font-family: Arial, sans-serif;
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .entry-date {
+      font-family: Arial, sans-serif;
+      font-size: 8pt;
+      color: var(--blue);
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: var(--accent);
+      padding: 1px 7px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .entry-org {
+      font-family: Arial, sans-serif;
+      font-size: 8.5pt;
+      color: var(--steel);
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+    .entry ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 0;
+    }
+    .entry li {
+      font-size: 9pt;
+      color: var(--text);
+      padding-left: 12px;
+      position: relative;
+    }
+    .entry li::before {
+      content: "▸";
+      color: var(--blue);
+      position: absolute;
+      left: 0;
+      font-size: 8pt;
+      top: 1px;
+    }
+
+    /* ── Formação entries ── */
+    .form-entry { margin-bottom: 10px; }
+    .form-entry .entry-role { font-size: 9pt; }
+    .form-entry .entry-org { margin-bottom: 2px; }
+
+    /* ── Divider between entries ── */
+    .entry + .entry,
+    .form-entry + .form-entry {
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+
+    /* ── Print styles ── */
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      body {
+        background: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      #btn-pdf { display: none !important; }
+      .page {
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+        min-height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Download PDF button -->
+<button id="btn-pdf" onclick="window.print()">
+  <svg viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21H19.44a2 2 0 0 0 1.94-1.515L22 17"/></svg>
+  Descarregar PDF
+</button>
+
+<div class="page">
+
+  <!-- CONTACTO -->
+  <header class="header">
+    <h1>Sérgio Almeida</h1>
+    <p class="headline">Técnico de Redes &amp; Sistemas · Redação &amp; Revisão · Formador</p>
+    <div class="contacts">
+      <span>
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13.07 19.79 19.79 0 0 1 1 4.39 2 2 0 0 1 2.98 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        928 212 041
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13.07 19.79 19.79 0 0 1 1 4.39 2 2 0 0 1 2.98 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        WhatsApp: 928 212 041
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        sergiusalmeida@gmail.com
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Rua de Azevedo n.º 413 R/C, 4300-049 Porto, Portugal
+      </span>
+    </div>
+  </header>
+
+  <div class="body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- PERFIL -->
+      <div class="section perfil">
+        <h2 class="section-title">Perfil</h2>
+        <p>Profissional orientado para a tecnologia, com forte capacidade de adaptação a novos desafios. Valoriza o relacionamento interpessoal, a sinergia de equipa e a melhoria contínua. Demonstra sentido crítico apurado e facilidade de comunicação em contextos diversos.</p>
+      </div>
+
+      <!-- COMPETÊNCIAS -->
+      <div class="section competencias">
+        <h2 class="section-title">Competências</h2>
+        <ul>
+          <li>C / C++</li>
+          <li>C#</li>
+          <li>Java &amp; JavaScript</li>
+          <li>PHP</li>
+          <li>Python</li>
+          <li>Redes e Sistemas Informáticos</li>
+          <li>Administração de Sistemas</li>
+          <li>Literacia Digital Avançada</li>
+          <li>Redação e Revisão de Textos</li>
+          <li>Liderança de Equipas</li>
+          <li>Comunicação Eficaz</li>
+        </ul>
+      </div>
+
+      <!-- IDIOMAS -->
+      <div class="section idiomas">
+        <h2 class="section-title">Idiomas</h2>
+        <div class="lang-item">
+          <div class="lang-name">Português</div>
+          <div class="lang-level">Nativo</div>
+          <div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="lang-item" style="margin-top:8px">
+          <div class="lang-name">Inglês</div>
+          <div class="lang-level">Intermédio — Compreensão, Expressão Escrita e Oral</div>
+          <div class="bar-bg"><div class="bar-fill" style="width:55%"></div></div>
+        </div>
+      </div>
+
+      <!-- HOBBIES -->
+      <div class="section hobbies">
+        <h2 class="section-title">Hobbies</h2>
+        <ul>
+          <li>Cozinhar</li>
+          <li>Leitura</li>
+          <li>Cinema</li>
+          <li>Música</li>
+          <li>Guitarra</li>
+          <li>Meditação</li>
+        </ul>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- EXPERIÊNCIA -->
+      <div class="section">
+        <h2 class="section-title">Experiência Profissional</h2>
+
+        <!-- 2022 – presente -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-role">Freelancer — Redação, Revisão e Digitação</span>
+            <span class="entry-date">Jan. 2022 – Presente</span>
+          </div>
+          <div class="entry-org">Trabalho Independente · Porto, Portugal</div>
+          <ul>
+            <li>Redigir e rever textos para clientes particulares e empresas.</li>
+            <li>Criar e formatar tabelas e relatórios em Excel.</li>
+            <li>Transcrever áudio e produzir legendas para conteúdos digitais.</li>
+            <li>Prestar suporte técnico e atendimento ao cliente em ambiente online.</li>
+          </ul>
+        </div>
+
+        <!-- 2019 – 2021 -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-role">Assistente Pessoal em Cuidados Domiciliários</span>
+            <span class="entry-date">Ago. 2019 – Dez. 2021</span>
+          </div>
+          <div class="entry-org">CAVI-AFUA / APN / AVI · Portugal</div>
+          <ul>
+            <li>Apoiar pessoas com deficiência física e mental nas atividades de vida diária.</li>
+            <li>Executar programas de reabilitação e promover a inclusão social.</li>
+            <li>Coordenar com equipas de saúde para garantir continuidade dos cuidados.</li>
+          </ul>
+        </div>
+
+        <!-- 2013 – 2019 -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-role">Freelancer — Formação, Tutoria e Investigação</span>
+            <span class="entry-date">Abr. 2013 – Mai. 2019</span>
+          </div>
+          <div class="entry-org">Trabalho Independente · Brasil / Portugal</div>
+          <ul>
+            <li>Ministrar tutorias de ensino básico e apoio académico.</li>
+            <li>Orientar dissertações e monografias em Língua Portuguesa.</li>
+            <li>Desenvolver e lecionar formação em informática inclusiva para idosos.</li>
+            <li>Atuar como agente cultural e redator em projetos comunitários.</li>
+          </ul>
+        </div>
+
+        <!-- 2000 – 2012 -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-role">Técnico Administrativo e Operacional</span>
+            <span class="entry-date">Jan. 2000 – Mar. 2012</span>
+          </div>
+          <div class="entry-org">SESC · SENAC · SEST-SENAT · SEED/GO · AR-X/DF · Carrefour · Brasil</div>
+          <ul>
+            <li>Operar caixa e gerir serviços gerais em ambiente de retalho.</li>
+            <li>Executar funções de secretariado e apoio administrativo.</li>
+            <li>Redigir, editar e rever conteúdos institucionais e comunicações internas.</li>
+            <li>Coordenar atividades culturais e sociais junto das comunidades locais.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- FORMAÇÃO -->
+      <div class="section">
+        <h2 class="section-title">Formação Académica</h2>
+
+        <div class="form-entry">
+          <div class="entry-header">
+            <span class="entry-role">Especialista em Gestão de Redes e Sistemas Informáticos</span>
+            <span class="entry-date">Abr. 2024 – Out. 2025</span>
+          </div>
+          <div class="entry-org">CINEL — Centro de Formação Profissional · Porto, Portugal</div>
+        </div>
+
+        <div class="form-entry">
+          <div class="entry-header">
+            <span class="entry-role">Programação — C/C++, C#, Java, JavaScript, PHP, Python</span>
+            <span class="entry-date">Ago. 2022 – Nov. 2023</span>
+          </div>
+          <div class="entry-org">TECNISIG INC — Centro de Competências Digitais · Porto, Portugal</div>
+        </div>
+
+        <div class="form-entry">
+          <div class="entry-header">
+            <span class="entry-role">Certificado de Equivalência do Ensino Secundário</span>
+            <span class="entry-date">Jun. 2022</span>
+          </div>
+          <div class="entry-org">Portugal</div>
+        </div>
+
+        <div class="form-entry">
+          <div class="entry-header">
+            <span class="entry-role">Pós-Graduação em Metodologia Científica — Análise Crítica do Discurso</span>
+            <span class="entry-date">Jun. 2014 – Jul. 2016</span>
+          </div>
+          <div class="entry-org">FAEL — Sociedade Técnica Educacional da Lapa · Paraná, Brasil</div>
+        </div>
+
+        <div class="form-entry">
+          <div class="entry-header">
+            <span class="entry-role">Licenciatura em Língua Portuguesa e Inglesa e respetivas Literaturas</span>
+            <span class="entry-date">Jun. 2003 – Ago. 2006</span>
+          </div>
+          <div class="entry-org">Faculdade Michelangelo — Instituto Rui Barbosa · Brasília, Brasil</div>
+        </div>
+
+      </div>
+    </main>
+
+  </div><!-- /.body -->
+</div><!-- /.page -->
+
+</body>
+</html>
