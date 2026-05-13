@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Sérgio Almeida - Go Abroad</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 11px;
+      line-height: 1.4;
+      color: #333;
+      background: #f5f5f5;
+    }
+    
+    .cv-container {
+      display: flex;
+      max-width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 35%;
+      background: #2c3e50;
+      color: white;
+      padding: 25px 20px;
+    }
+    
+    .photo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #3498db;
+      object-fit: cover;
+    }
+    
+    .photo-placeholder {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #3498db;
+      background: #34495e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      font-weight: bold;
+      color: #3498db;
+      margin: 0 auto;
+    }
+    
+    .sidebar-section {
+      margin-bottom: 20px;
+    }
+    
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #3498db;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      font-size: 10px;
+    }
+    
+    .contact-icon {
+      width: 16px;
+      margin-right: 8px;
+      color: #3498db;
+      flex-shrink: 0;
+    }
+    
+    .contact-text {
+      word-break: break-word;
+    }
+    
+    .profile-text {
+      font-size: 10px;
+      line-height: 1.5;
+      text-align: justify;
+    }
+    
+    .competencia-item {
+      background: #34495e;
+      padding: 6px 10px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      font-size: 10px;
+      border-left: 3px solid #3498db;
+    }
+    
+    .idioma-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 10px;
+    }
+    
+    .idioma-nivel {
+      color: #3498db;
+    }
+    
+    .palavra-chave {
+      display: inline-block;
+      background: #3498db;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 9px;
+      margin: 2px;
+    }
+    
+    /* Main Content */
+    .main-content {
+      width: 65%;
+      padding: 25px 25px;
+    }
+    
+    .header {
+      margin-bottom: 20px;
+      border-bottom: 3px solid #2c3e50;
+      padding-bottom: 15px;
+    }
+    
+    .name {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+    
+    .title {
+      font-size: 13px;
+      color: #3498db;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .main-section {
+      margin-bottom: 18px;
+    }
+    
+    .main-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #2c3e50;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 5px;
+      margin-bottom: 12px;
+    }
+    
+    .experience-item {
+      margin-bottom: 14px;
+      padding-left: 12px;
+      border-left: 2px solid #e0e0e0;
+    }
+    
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3px;
+    }
+    
+    .exp-title {
+      font-weight: 700;
+      color: #2c3e50;
+      font-size: 11px;
+      flex: 1;
+    }
+    
+    .exp-date {
+      color: #3498db;
+      font-size: 10px;
+      font-weight: 600;
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+    
+    .exp-company {
+      color: #666;
+      font-style: italic;
+      font-size: 10px;
+      margin-bottom: 5px;
+    }
+    
+    .exp-tasks {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .exp-tasks li {
+      position: relative;
+      padding-left: 12px;
+      margin-bottom: 3px;
+      font-size: 10px;
+      color: #444;
+    }
+    
+    .exp-tasks li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #3498db;
+    }
+    
+    .education-item {
+      margin-bottom: 10px;
+    }
+    
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .edu-title {
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 10px;
+      flex: 1;
+    }
+    
+    .edu-date {
+      color: #3498db;
+      font-size: 9px;
+      font-weight: 600;
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+    
+    .edu-institution {
+      color: #666;
+      font-size: 9px;
+      font-style: italic;
+    }
+    
+    /* Buttons - only visible on screen */
+    .buttons-container {
+      text-align: center;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      margin: 5px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s;
+    }
+    
+    .btn-pdf {
+      background: #2c3e50;
+      color: white;
+    }
+    
+    .btn-pdf:hover {
+      background: #1a252f;
+    }
+    
+    .btn-docx {
+      background: #3498db;
+      color: white;
+    }
+    
+    .btn-docx:hover {
+      background: #2980b9;
+    }
+    
+    @media print {
+      body {
+        background: white;
+      }
+      
+      .cv-container {
+        box-shadow: none;
+        margin: 0;
+        min-height: auto;
+      }
+      
+      .buttons-container {
+        display: none !important;
+      }
+      
+      .sidebar {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="buttons-container">
+    <button class="btn btn-pdf" onclick="window.print()">Descarregar PDF</button>
+    <button class="btn btn-docx" onclick="downloadDocx()">Descarregar DOCX</button>
+  </div>
+
+  <div class="cv-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="photo-container">
+        <img src="foto-sergio.jpg" alt="Foto de Sérgio Almeida" class="photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder" style="display:none;">SA</div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h2 class="sidebar-title">Contacto</h2>
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <span class="contact-text">Rua de Azevedo n. 413 R/C<br>CP 4300-049 Campanhã, Porto</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📱</span>
+          <span class="contact-text">+351 920 538 134 (WhatsApp)<br>+351 920 530 428</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">✉️</span>
+          <span class="contact-text">sergiusalmeida@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">🚗</span>
+          <span class="contact-text">Carta de Condução Cat. B</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">🇵🇹</span>
+          <span class="contact-text">Cidadania Portuguesa</span>
+        </div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h2 class="sidebar-title">Perfil</h2>
+        <p class="profile-text">
+          Profissional com vasta experiência em inclusão social, gestão de projetos comunitários e trabalho com populações em situação de vulnerabilidade. Atuação consolidada em elaboração e coordenação de projetos sociais, formação de equipas e advocacia pelos direitos humanos. Especialista em comunicação intercultural com domínio do contexto lusófono. Disponibilidade total para deslocação internacional, incluindo países africanos de língua portuguesa.
+        </p>
+      </div>
+      
+      <div class="sidebar-section">
+        <h2 class="sidebar-title">Competências-Chave</h2>
+        <div class="competencia-item">Gestão e Coordenação de Projetos Sociais</div>
+        <div class="competencia-item">Inclusão Social e Empoderamento</div>
+        <div class="competencia-item">Liderança e Gestão de Equipas</div>
+        <div class="competencia-item">Advocacia e Direitos Humanos</div>
+        <div class="competencia-item">Formação e Capacitação</div>
+        <div class="competencia-item">Redação de Relatórios e Propostas</div>
+        <div class="competencia-item">Monitoria e Avaliação (M&A)</div>
+        <div class="competencia-item">Relações Institucionais e Parcerias</div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h2 class="sidebar-title">Idiomas</h2>
+        <div class="idioma-item">
+          <span>Português</span>
+          <span class="idioma-nivel">Nativo</span>
+        </div>
+        <div class="idioma-item">
+          <span>Inglês</span>
+          <span class="idioma-nivel">Intermédio</span>
+        </div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h2 class="sidebar-title">Palavras-Chave</h2>
+        <div>
+          <span class="palavra-chave">Compromisso</span>
+          <span class="palavra-chave">Empatia</span>
+          <span class="palavra-chave">Resiliência</span>
+          <span class="palavra-chave">Sinergia</span>
+          <span class="palavra-chave">Proatividade</span>
+          <span class="palavra-chave">Comunicação</span>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="header">
+        <h1 class="name">Sérgio Ribeiro de Almeida</h1>
+        <p class="title">Coordenador / Assistente de Projetos Sociais</p>
+      </header>
+      
+      <section class="main-section">
+        <h2 class="main-title">Experiência Profissional</h2>
+        
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Assistente de Projetos Culturais e Sociais</span>
+            <span class="exp-date">2011 — 2012</span>
+          </div>
+          <div class="exp-company">Casa da Cultura do Guará - RAX · Brasília, Brasil</div>
+          <ul class="exp-tasks">
+            <li>Coordenar e implementar projetos culturais e sociais junto de comunidades locais.</li>
+            <li>Elaborar propostas e relatórios de atividades para financiadores.</li>
+            <li>Articular parcerias com organizações locais e entidades públicas.</li>
+            <li>Promover eventos de inclusão social e capacitação comunitária.</li>
+          </ul>
+        </div>
+        
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Colaborador em Projetos e Ações Sociais</span>
+            <span class="exp-date">1987 — 2005</span>
+          </div>
+          <div class="exp-company">SESC - Serviço Social do Comércio · Brasília, Brasil</div>
+          <ul class="exp-tasks">
+            <li>Elaborar e executar projetos de desenvolvimento social e cultural.</li>
+            <li>Coordenar equipas multidisciplinares em programas comunitários.</li>
+            <li>Organizar atividades de formação e capacitação para públicos vulneráveis.</li>
+            <li>Redigir relatórios de monitoria e avaliação de projetos.</li>
+            <li>Gerir relações institucionais com parceiros e entidades governamentais.</li>
+          </ul>
+        </div>
+        
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Assistente Pessoal - Inclusão de Pessoas com Deficiência</span>
+            <span class="exp-date">Ago. 2019 — Dez. 2021</span>
+          </div>
+          <div class="exp-company">CAVI-AFUA / APN / AVI · Porto, Portugal</div>
+          <ul class="exp-tasks">
+            <li>Apoiar pessoas com deficiência física e mental na vida independente.</li>
+            <li>Executar programas de reabilitação e promover inclusão social.</li>
+            <li>Coordenar com equipas de saúde para continuidade dos cuidados.</li>
+            <li>Participar em formações e encontros sobre inclusão e direitos.</li>
+          </ul>
+        </div>
+        
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="exp-title">Formador e Tutor — Educação e Capacitação</span>
+            <span class="exp-date">2006 — 2019</span>
+          </div>
+          <div class="exp-company">Freelancer / SEST-SENAT / SEEG · Brasil e Portugal</div>
+          <ul class="exp-tasks">
+            <li>Ministrar formação em Língua Portuguesa e metodologia científica.</li>
+            <li>Desenvolver programas de informática inclusiva para idosos.</li>
+            <li>Orientar dissertações, monografias e trabalhos académicos.</li>
+            <li>Atuar como agente cultural e redator em projetos comunitários.</li>
+          </ul>
+        </div>
+      </section>
+      
+      <section class="main-section">
+        <h2 class="main-title">Formação Académica</h2>
+        
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="edu-title">Pós-Graduação em Metodologia Científica — Língua Portuguesa e Literatura</span>
+            <span class="edu-date">2016</span>
+          </div>
+          <div class="edu-institution">FAEL — Sociedade Técnica Educacional da Lapa · Paraná, Brasil</div>
+        </div>
+        
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="edu-title">Licenciatura em Letras — Português/Inglês e respetivas Literaturas</span>
+            <span class="edu-date">2006</span>
+          </div>
+          <div class="edu-institution">Faculdade Michelangelo — Instituto Rui Barbosa · Brasília, Brasil</div>
+        </div>
+        
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="edu-title">Especialista em Gestão de Redes e Sistemas Informáticos</span>
+            <span class="edu-date">2024 — 2025</span>
+          </div>
+          <div class="edu-institution">CINEL — Centro de Formação Profissional · Porto, Portugal</div>
+        </div>
+        
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="edu-title">Curso de Programador de Informática</span>
+            <span class="edu-date">2022 — 2023</span>
+          </div>
+          <div class="edu-institution">TECNISIGN INC — Formação e Consultoria · Coimbra, Portugal</div>
+        </div>
+      </section>
+      
+      <section class="main-section">
+        <h2 class="main-title">Formações Complementares Relevantes</h2>
+        
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="edu-title">Formação para Gestão Cultural — Pontos de Cultura</span>
+            <span class="edu-date">2011</span>
+          </div>
+          <div class="edu-institution">Instituto Comuna S.A · Brasil</div>
+        </div>
+        
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="edu-title">Formação para Cuidadores — Projeto GivingCare</span>
+            <span class="edu-date">2023</span>
+          </div>
+          <div class="edu-institution">Escola Superior de Saúde de Santa Maria · Porto, Portugal</div>
+        </div>
+        
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="edu-title">Formação para Cuidador de Idosos e Primeiros Socorros</span>
+            <span class="edu-date">2018</span>
+          </div>
+          <div class="edu-institution">ONG Saúde até Você · Brasília, Brasil</div>
+        </div>
+        
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="edu-title">Formação de Assistentes Pessoais — CAVI</span>
+            <span class="edu-date">2019 — 2021</span>
+          </div>
+          <div class="edu-institution">CAVI/AFUA-HML, APN, AVI · Porto, Portugal</div>
+        </div>
+        
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="edu-title">Língua Inglesa — Relações Laborais (Iniciação a Aprofundamento)</span>
+            <span class="edu-date">2022</span>
+          </div>
+          <div class="edu-institution">Triformis Consultoria em Negócios · Braga, Portugal (150h)</div>
+        </div>
+      </section>
+      
+      <section class="main-section">
+        <h2 class="main-title">Referências Profissionais</h2>
+        <p style="font-size: 10px; color: #666;">
+          <strong>Portugal:</strong> Voltalia S.A - Dr. Rodrigo Moreira (+351 965 877 372) · CAVI/APN - Dra. Sílvia Costa (+351 226 106 202) · CAVI/AFUA - Dra. Cláudia Oliveira (+351 962 329 240)<br>
+          <strong>Brasil:</strong> SESC-DF - RH (+55 61 3218-9145) · Clínica de Psicologia - Sra. Teresinha (+55 61 3272-3578)
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function downloadDocx() {
+      const docContent = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head><meta charset='utf-8'><title>CV Sérgio Almeida</title>
+        <style>
+          body { font-family: Calibri, sans-serif; font-size: 11pt; line-height: 1.4; margin: 2cm; }
+          h1 { color: #2c3e50; font-size: 24pt; margin-bottom: 5pt; }
+          h2 { color: #2c3e50; font-size: 14pt; border-bottom: 2px solid #3498db; padding-bottom: 3pt; margin-top: 15pt; }
+          h3 { color: #2c3e50; font-size: 12pt; margin-bottom: 3pt; }
+          .subtitle { color: #3498db; font-size: 13pt; margin-bottom: 15pt; }
+          .date { color: #3498db; font-weight: bold; }
+          .company { color: #666; font-style: italic; }
+          .contact { margin-bottom: 10pt; }
+          ul { margin-left: 20pt; }
+          li { margin-bottom: 3pt; }
+          .section { margin-bottom: 15pt; }
+        </style>
+        </head>
+        <body>
+          <h1>Sérgio Ribeiro de Almeida</h1>
+          <p class="subtitle">Coordenador / Assistente de Projetos Sociais</p>
+          
+          <div class="contact">
+            <p><strong>Morada:</strong> Rua de Azevedo n. 413 R/C, CP 4300-049 Campanhã, Porto</p>
+            <p><strong>Telefone:</strong> +351 920 538 134 (WhatsApp) / +351 920 530 428</p>
+            <p><strong>E-mail:</strong> sergiusalmeida@gmail.com</p>
+            <p><strong>Carta de Condução:</strong> Categoria B | <strong>Cidadania:</strong> Portuguesa</p>
+          </div>
+          
+          <h2>Perfil Profissional</h2>
+          <p>Profissional com vasta experiência em inclusão social, gestão de projetos comunitários e trabalho com populações em situação de vulnerabilidade. Atuação consolidada em elaboração e coordenação de projetos sociais, formação de equipas e advocacia pelos direitos humanos. Especialista em comunicação intercultural com domínio do contexto lusófono. Disponibilidade total para deslocação internacional, incluindo países africanos de língua portuguesa.</p>
+          
+          <h2>Competências-Chave</h2>
+          <ul>
+            <li>Gestão e Coordenação de Projetos Sociais</li>
+            <li>Inclusão Social e Empoderamento</li>
+            <li>Liderança e Gestão de Equipas</li>
+            <li>Advocacia e Direitos Humanos</li>
+            <li>Formação e Capacitação</li>
+            <li>Redação de Relatórios e Propostas</li>
+            <li>Monitoria e Avaliação (M&A)</li>
+            <li>Relações Institucionais e Parcerias</li>
+          </ul>
+          
+          <h2>Experiência Profissional</h2>
+          
+          <div class="section">
+            <h3>Assistente de Projetos Culturais e Sociais <span class="date">2011 — 2012</span></h3>
+            <p class="company">Casa da Cultura do Guará - RAX · Brasília, Brasil</p>
+            <ul>
+              <li>Coordenar e implementar projetos culturais e sociais junto de comunidades locais.</li>
+              <li>Elaborar propostas e relatórios de atividades para financiadores.</li>
+              <li>Articular parcerias com organizações locais e entidades públicas.</li>
+              <li>Promover eventos de inclusão social e capacitação comunitária.</li>
+            </ul>
+          </div>
+          
+          <div class="section">
+            <h3>Colaborador em Projetos e Ações Sociais <span class="date">1987 — 2005</span></h3>
+            <p class="company">SESC - Serviço Social do Comércio · Brasília, Brasil</p>
+            <ul>
+              <li>Elaborar e executar projetos de desenvolvimento social e cultural.</li>
+              <li>Coordenar equipas multidisciplinares em programas comunitários.</li>
+              <li>Organizar atividades de formação e capacitação para públicos vulneráveis.</li>
+              <li>Redigir relatórios de monitoria e avaliação de projetos.</li>
+              <li>Gerir relações institucionais com parceiros e entidades governamentais.</li>
+            </ul>
+          </div>
+          
+          <div class="section">
+            <h3>Assistente Pessoal - Inclusão de Pessoas com Deficiência <span class="date">Ago. 2019 — Dez. 2021</span></h3>
+            <p class="company">CAVI-AFUA / APN / AVI · Porto, Portugal</p>
+            <ul>
+              <li>Apoiar pessoas com deficiência física e mental na vida independente.</li>
+              <li>Executar programas de reabilitação e promover inclusão social.</li>
+              <li>Coordenar com equipas de saúde para continuidade dos cuidados.</li>
+              <li>Participar em formações e encontros sobre inclusão e direitos.</li>
+            </ul>
+          </div>
+          
+          <div class="section">
+            <h3>Formador e Tutor — Educação e Capacitação <span class="date">2006 — 2019</span></h3>
+            <p class="company">Freelancer / SEST-SENAT / SEEG · Brasil e Portugal</p>
+            <ul>
+              <li>Ministrar formação em Língua Portuguesa e metodologia científica.</li>
+              <li>Desenvolver programas de informática inclusiva para idosos.</li>
+              <li>Orientar dissertações, monografias e trabalhos académicos.</li>
+              <li>Atuar como agente cultural e redator em projetos comunitários.</li>
+            </ul>
+          </div>
+          
+          <h2>Formação Académica</h2>
+          
+          <p><strong>Pós-Graduação em Metodologia Científica — Língua Portuguesa e Literatura</strong> <span class="date">2016</span><br>
+          <span class="company">FAEL — Sociedade Técnica Educacional da Lapa · Paraná, Brasil</span></p>
+          
+          <p><strong>Licenciatura em Letras — Português/Inglês e respetivas Literaturas</strong> <span class="date">2006</span><br>
+          <span class="company">Faculdade Michelangelo — Instituto Rui Barbosa · Brasília, Brasil</span></p>
+          
+          <p><strong>Especialista em Gestão de Redes e Sistemas Informáticos</strong> <span class="date">2024 — 2025</span><br>
+          <span class="company">CINEL — Centro de Formação Profissional · Porto, Portugal</span></p>
+          
+          <p><strong>Curso de Programador de Informática</strong> <span class="date">2022 — 2023</span><br>
+          <span class="company">TECNISIGN INC — Formação e Consultoria · Coimbra, Portugal</span></p>
+          
+          <h2>Formações Complementares Relevantes</h2>
+          
+          <p><strong>Formação para Gestão Cultural — Pontos de Cultura</strong> <span class="date">2011</span> · Instituto Comuna S.A, Brasil</p>
+          <p><strong>Formação para Cuidadores — Projeto GivingCare</strong> <span class="date">2023</span> · Escola Superior de Saúde de Santa Maria, Porto</p>
+          <p><strong>Formação para Cuidador de Idosos e Primeiros Socorros</strong> <span class="date">2018</span> · ONG Saúde até Você, Brasília</p>
+          <p><strong>Formação de Assistentes Pessoais — CAVI</strong> <span class="date">2019 — 2021</span> · CAVI/AFUA-HML, APN, AVI, Porto</p>
+          <p><strong>Língua Inglesa — Relações Laborais</strong> <span class="date">2022</span> · Triformis Consultoria, Braga (150h)</p>
+          
+          <h2>Idiomas</h2>
+          <p><strong>Português:</strong> Nativo | <strong>Inglês:</strong> Intermédio</p>
+          
+          <h2>Referências Profissionais</h2>
+          <p><strong>Portugal:</strong> Voltalia S.A - Dr. Rodrigo Moreira (+351 965 877 372) · CAVI/APN - Dra. Sílvia Costa (+351 226 106 202) · CAVI/AFUA - Dra. Cláudia Oliveira (+351 962 329 240)</p>
+          <p><strong>Brasil:</strong> SESC-DF - RH (+55 61 3218-9145) · Clínica de Psicologia - Sra. Teresinha (+55 61 3272-3578)</p>
+        </body>
+        </html>
+      `;
+      
+      const blob = new Blob(['\\ufeff', docContent], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'CV_Sergio_Almeida_GoAbroad.doc';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
